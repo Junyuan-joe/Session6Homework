@@ -1,0 +1,37 @@
+★ 飲料機作業(動態互動式網站功能)
+JavaEE_Session6_Homework
+JSP(JSDL) + Struts 1.x(Framework) + Filter(HttpSession) + JDBC(JNDI)
+
+一、後臺頁面
+(1)商品列表：動態呈現商品列表、商品下架訊息
+(2)商品補貨作業：選擇「飲料名稱」自動將「商品價格」、「商品庫存量」資料帶入；商品補貨訊息
+(3)商品新增上架：商品新增上架訊息
+(4)銷售報表：依日期起迄區間查詢訂單資訊
+(5)功能選單列表運用include方式整合
+
+二、前臺頁面
+(1)商品列表：
+        每三項商品一列呈現(一列三筆、一頁六筆)
+        關鍵字商品名稱搜尋
+
+(2)消費明細呈現資料如下:
+投入金額、購買金額、找零金額、購買商品名稱、商品價格、購買數量
+
+http://localhost:8085/JavaEE_Session6_Homework/
+
+● server.xml 設置
+<Context docBase="JavaEE_Session6_Homework" path="/JavaEE_Session6_Homework" reloadable="true" source="org.eclipse.jst.jee.server:JavaEE_Session6_Homework">
+   <Resource
+     auth="Container" 
+   	 name="jdbc/oracle"
+   	 type="javax.sql.DataSource"
+	 driverClassName="oracle.jdbc.OracleDriver"
+	 url="jdbc:oracle:thin:@localhost:1521:xe"
+	 username="LOCAL"
+	 password="root"
+	 maxTotal="20" 
+	 maxActive="20"
+	 maxIdle="10"
+	 maxWaitMillis="-1"
+   />
+</Context>

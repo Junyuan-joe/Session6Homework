@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+	<form-bean name="goodsform" type="com.training.formbean.Goodsform"/>
+	</form-beans>
+
+<action-mappings>
+           <action path="/BackendAction" type="com.training.action.BackendActionAjax" parameter="action"
+        		name="goodsform">
+        		   
+            <forward name="queryGoods" path="/BackendAction.do?action=queryGoodsPage" redirect="true"/>
+            <forward name="queryGoodsPageView" path="/WEB-INF/view/VM_Backend_GoodsList.jsp" />
+         
+         
+            <forward name="addGoods" path="/BackendAction.do?action=addGoodsView" redirect="true"/>
+            <forward name="addGoodsView" path="/WEB-INF/view/VM_Backend_GoodsCreate.jsp" />
+            
+            
+            <forward name="updateGoods" path="/BackendAction.do?action=updateGoodsView" redirect="true"/>    
+<!--              <forward name="updateGoodsView" path="/WEB-INF/view/VM_Backend_GoodsReplenishment.jsp"/> -->
+              <forward name="updateGoodsView" path="/WEB-INF/view/VM_Backend_GoodsReplenishmentAjax.jsp"/>
+            
+            <forward name="querySalesReport" path="/BackendAction.do?action=querySalesReportView" />
+            <forward name="querySalesReportView" path="/WEB-INF/view/VM_Backend_GoodsSaleReport.jsp"/>
+            
+              <forward name="deleteGoods" path="/BackendAction.do?action=queryGoods" redirect="true"/>
+            
+        </action>
+    </action-mappings>
+</struts-config>
+<!--   <forward name="accountModify" path="/BankAction.do?action=modifyAccountView" redirect="true"/> -->
+<!--    <forward name="accountModifyView" path="/WEB-INF/view/VM_Backend_GoodsReplenishment.html"/> -->

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>f</short-name>
+	<!-- <uri> 設定是在 JSP taglib 指示元素的 uri、web.xml <taglib>、<taglib-uri> 屬性對應用的。 -->
+	<uri>http://com.training/Custom/tag</uri>
+	<tag>
+		<!-- 每個<tag>標籤中使用<name>定義了自訂標籤的名稱 -->
+		<name>if</name>
+		<!-- 使用<tag-class>定義標籤處理器類別 -->
+		<tag-class>com.training.tag.IfTag</tag-class>
+		<!-- JSP(TAG內可以有Body) 、empty(不可有Body) 、 scriptless(表示標籤本體中不允許使用Scripting elements等元素) -->
+		<body-content>scriptless</body-content>
+		<!-- 如果標籤上有屬性，則是使用<attribute>來設定 -->	
+		<attribute>
+			<!-- <name>設定屬性名稱 -->
+			<name>test</name>
+			<!-- <required>表示是否一定要設定這個屬性 -->
+			<required>true</required>
+			<!-- <rtexprvalue>（也就是runtime expression value）表示屬性是否接受執行時期運算的結果 -->
+			<rtexprvalue>true</rtexprvalue>
+			<!-- <type>則設定屬性型態 -->
+			<type>boolean</type>
+		</attribute>
+	</tag>
+	
+	<!-- Other multiple... <tag></tag> -->
+</taglib>

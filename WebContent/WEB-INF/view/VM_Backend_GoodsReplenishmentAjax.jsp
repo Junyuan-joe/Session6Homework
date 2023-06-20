@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!DOCTYPE html>
-
-<c:url value="/" var="WEB_PATH"/>
+<%-- <c:url value="/" var="WEB_PATH"/> --%>
 <html>
 <head>
     <meta http-equiv="Content-Language" content="zh-tw">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
     <title>BankLogin</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 
@@ -22,7 +19,7 @@ function getUpdatedGoods() {
             data: {goodsID: goodsID},
             dataType: "json",
             success: function(goods) {
-                // 使用返回的 goods 數據更新相應的表單字段
+                // 使用返回的 goods 數據更新相應的表單
                 $("input[name='goodsPrice']").val(goods.goodsPrice);
                 $("#goodsQuantityDisplay").text("庫存數量：" + goods.goodsQuantity);
                 $("input[name='status'][value='" + goods.status + "']").prop("checked", true);
@@ -53,16 +50,16 @@ function deleteGoods(goodsID) {
 }
 
 function goodsSubmit(event) {
-    event.preventDefault();
+    event.preventDefault();//阻止表單的自動提交
     var goodsID = $("#goodsID").val();
-    var status = $("input[name='status']:checked").val(); // Get the value of the checked status radio button
+    var status = $("input[name='status']:checked").val(); //  checked status  button
 
     if (!goodsID) {
         alert("請選擇商品!");
         return false;
     } else {
-        if (status === "下架") { // Compare the status value instead of checking the second radio button
-           // deleteGoods(goodsID);
+        if (status === "下架") { 
+     
         } else {
             document.updateGoodsForm.action = "BackendAction.do?action=updateGoods";
             document.updateGoodsForm.submit();
@@ -73,7 +70,7 @@ $(document).ready(function() {
     getUpdatedGoods();
 });
 //$(document).ready()中调用getUpdatedGoods()，
-//确保函数仅在DOM完全加载后执行，避免了可能出现的访问尚未可用的DOM元素的问题。
+//确保函数仅在DOM完全加载後执行，避免了可能出现的访问尚未可用的DOM元素的问题。
 </script>
 </head>
 <body>
@@ -95,7 +92,7 @@ $(document).ready(function() {
                 
                    <c:forEach items="${goodsList}" var="goods">
    
-    
+<!--     頁面載入時，這個選項將預設被選中  updateGoods 物件表示）將被預設選中-->
     <option value="${goods.goodsID}" <c:if test="${goods.goodsID eq updateGoods.goodsID}">selected</c:if>>
                                       ${goods.goodsName}
     </option>

@@ -1,12 +1,9 @@
 package com.training.action;
-
-
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -21,28 +18,22 @@ import com.training.formbean.Goodsform;
 import com.training.model.Goods;
 import com.training.service.BackendService;
 import com.training.service.FrontendService;
-
 import com.training.vo.SalesReport;
-
 import net.sf.json.JSONObject;
-
 public class BackendActionAjax extends DispatchAction {
 	private BackendDao backendDao=BackendDao.getInstance();
 	private BackendService backendService = BackendService.getInstance();
 	
-	public ActionForward queryGoods(ActionMapping mapping, ActionForm form, 
-			HttpServletRequest request, HttpServletResponse response)
-			
+public ActionForward queryGoods(ActionMapping mapping, ActionForm form, 
+			HttpServletRequest request, HttpServletResponse response)			
 					throws Exception{
-	
 		
-		List<Goods> goodsList = backendService.queryGoods();
-				
-	
-		request.setAttribute("goodsList", goodsList);//查詢商品
+//	List<Goods> goodsList = backendService.queryGoods();
+//			
+//	request.setAttribute("goodsList", goodsList);//查詢商品
 			
-			return mapping.findForward("queryGoods");
-		
+	return mapping.findForward("queryGoods");
+	
 
 		
 		
@@ -59,7 +50,7 @@ public class BackendActionAjax extends DispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 		HttpSession session=request.getSession();
-		//String createMsg=null;
+
 		Goodsform goodsbean = (Goodsform) form;
 		//進來的ActionForm物件轉換為Goodsform類型的變數goodsbean
 		
@@ -85,9 +76,9 @@ public class BackendActionAjax extends DispatchAction {
 
         fileOutput.write(file.getFileData()); //上傳資料寫入到資料輸出流
         
-        fileOutput.flush(); //刷新
+        fileOutput.flush(); 
         
-        fileOutput.close(); //關閉
+        fileOutput.close(); 
         
         file.destroy() ;
         
@@ -113,22 +104,22 @@ public class BackendActionAjax extends DispatchAction {
 		
 	List<Goods> goodsList = backendService.queryGoods();
 	
-       session.setAttribute("goodsList", goodsList);//選擇商品列    
+     session.setAttribute("goodsList", goodsList);//選擇商品列    
          
-  String selectGoodsID=request.getParameter("goodsID");
-  
-   Object updateGoodsID=session.getAttribute("updateGoodsID");
-
-
-   if (selectGoodsID != null && !selectGoodsID.isEmpty()) {
-    	
-    	Long goodsID = updateGoodsID != null ? (long) updateGoodsID : null;
-    	goodsID =selectGoodsID !=null ? Long.parseLong(selectGoodsID) : goodsID;
-    	Goods goods= backendService.queryGoodsById(goodsID);
+//  String selectGoodsID=request.getParameter("goodsID");
+//  
+//   Object updateGoodsID=session.getAttribute("updateGoodsID");
+//
+//
+//   if (selectGoodsID != null && !selectGoodsID.isEmpty()) {
+//    	
+//    	Long goodsID = updateGoodsID != null ? (long) updateGoodsID : null;
+//    	goodsID =selectGoodsID !=null ? Long.parseLong(selectGoodsID) : goodsID;
+//    	Goods goods= backendService.queryGoodsById(goodsID);
   
     	 // 将查尋到的商品信息设置为属性，以便在goods中使用
-        request.setAttribute("goods", goods);
-   }
+//        request.setAttribute("goods", goods);
+   
     	
  
 	return mapping.findForward("updateGoodsView");
@@ -143,15 +134,11 @@ public class BackendActionAjax extends DispatchAction {
 		 String selectGoodsID=request.getParameter("goodsID");
 		 Object updateGoodsID=session.getAttribute("updateGoodsID");
 		  
-		 if (selectGoodsID != null && !selectGoodsID.isEmpty()) {
-		    	
+		 if (selectGoodsID != null && !selectGoodsID.isEmpty()) {		    	
 		  Long goodsID = updateGoodsID != null ? (long) updateGoodsID : null;
 		  goodsID =selectGoodsID !=null ? Long.parseLong(selectGoodsID) : goodsID;
 		  Goods goods= backendService.queryGoodsById(goodsID);
-			//goodsID的参数值存在且非空，方法就将"updateGoodsID"的属性值转换为Long类型的商品ID，
-		  //如果"updateGoodsID"的属性值不存在，那么商品ID就设置为null
-		  //接着，方法使用"goodsID"的参数值覆盖商品ID，如果"goodsID"的参数值不存在，那么商品ID就保持不变
-			
+	
            response.setCharacterEncoding("UTF-8");
            response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
@@ -167,10 +154,9 @@ public class BackendActionAjax extends DispatchAction {
 	        HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 	    HttpSession session = request.getSession();
-	
-	  
-    
-	    Goodsform goodsbean = (Goodsform) form;////進來的ActionForm物件轉換為Goodsform類型的變數goodsbean
+	   
+	    Goodsform goodsbean = (Goodsform) form;
+	    //進來的ActionForm物件轉換為Goodsform類型的變數goodsbean
 
 	    Goods go = new Goods();
 
@@ -179,14 +165,9 @@ public class BackendActionAjax extends DispatchAction {
 	    	    
 	    int goodsID = backendService.updateGoods(go);
 	
-
-	  
 	  
 	    session.setAttribute("updateGoods", go);
-   
-	    
-//	    List<Goods> goodsList = backendService.queryGoods1();//計算上下架筆數
-
+   	    
 
 	    String updateMsg = "";
 	    if (goodsID > 0) {
@@ -210,9 +191,8 @@ public class BackendActionAjax extends DispatchAction {
 
 		if (pageIndexStr != null && !pageIndexStr.isEmpty()) {
 		    pageIndex = Integer.parseInt(pageIndexStr);
-		}//請求中的"pageIndex"參數，
-		 //並將其轉換為整數類型。如果參數存在且非空，則將其作為當前頁碼
-
+		}
+	
 		List<Goods> goodsList = backendService.queryGoods();//所有的商品列表
 		int totalPage = (int) Math.ceil((double) goodsList.size() / pageSize);//計算總頁數
 //		Math.ceil()方法對goodsList.size()除以每頁顯示數量
@@ -221,10 +201,10 @@ public class BackendActionAjax extends DispatchAction {
 //		所以再次使用類型轉換(int)將結果轉換為整數類型，以便得到最終的總頁數
 		
 		int startIndex = (pageIndex - 1) * pageSize;//計算起始索引和結束索引
+		
 		//根據當前頁碼和每頁顯示的數量，計算出當前頁碼對應的數據在商品列表中的		
 		int endIndex = Math.max(startIndex, Math.min(startIndex + pageSize, goodsList.size())); 
 		//使用Math.min()函數，將預計的結束索引與商品列表的總條數進行比較，取其中較小的值。這是為了確保結束索引不會超出商品列表的範圍。
-
         //使用Math.max()函數，將較小的值與起始索引進行比較，取其中較大的值。這是為了確保結束索引不會小於起始索引，避免出現不合理的索引範圍。
 
 		List<Goods> pageGoodsList = goodsList.subList(startIndex, endIndex); // 分頁商品列表
@@ -237,8 +217,10 @@ public class BackendActionAjax extends DispatchAction {
 
 		// 動態生成分頁按鈕
 		int startPageNum = Math.max(1, pageIndex - 2);//確保起始頁碼不會小於1，至少從第1頁開始
+		
 		int endPageNum = Math.min(startPageNum + 4, totalPage);
-		//取起始頁碼加上4和總頁數中較小的值，以確保分頁按鈕的數量不超過5個，並且不會超出總頁數的範圍。
+		//取起始頁碼加上4和總頁數中較小的值，以確保分頁按鈕的數量不超過5個，並且不會超出總頁數的範圍
+		
 		startPageNum = Math.max(1, endPageNum - 4);
 		//再次使用Math.max，將結束頁碼減去4後的值與1進行比較
 		//取其中較大的值。這是為了確保結束頁碼與起始頁碼之間的差值為4
@@ -246,6 +228,7 @@ public class BackendActionAjax extends DispatchAction {
 
 
 		List<Integer> pageButtonList = new ArrayList<>();//用於存儲生成的分頁按鈕的頁碼
+		
 		for (int i = startPageNum; i <= endPageNum; i++) {
 		    pageButtonList.add(i);
 		    }
@@ -271,7 +254,7 @@ public class BackendActionAjax extends DispatchAction {
 
 		    List<SalesReport> salesReports = new ArrayList<>(backendService.querySalesReport(queryStartDate, queryEndDate));
            //創建了一個名為 salesReports 的新的 ArrayList，用於存儲銷售報表查詢的結果。
-         //調用 backendService 物件的 querySalesReport 方法，
+         //調用 backendService 物件的 querySalesReport 方法
         //將 queryStartDate 和 queryEndDate 
       //作為參數傳遞進去。將結果添加到 salesReports 列表中。
 		    

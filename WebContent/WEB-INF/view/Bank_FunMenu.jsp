@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<h1>Bank Account Service</h1>
+<h1>Backend Service</h1>
 <p style="color:blue;">
 	${member.customerName} 先生/小姐您好!
 	<a href="LoginAction.do?action=logout" align="left">(登出)</a>

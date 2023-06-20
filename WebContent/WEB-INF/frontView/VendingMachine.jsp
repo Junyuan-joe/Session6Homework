@@ -207,7 +207,6 @@
 	        event.preventDefault();//阻止表单的默认提交
 
 	        var goodsID = $(this).data("goods-id");
-// 	        var stockQuantity = parseInt($(this).data("goods-quantity"));
 
 	        var buyQuantity = parseInt($("input[name='buyQuantity" + goodsID + "']").val());
 	        if (isNaN(buyQuantity) || buyQuantity < 1) {
@@ -298,7 +297,7 @@
 	                } else {
 	                    $("#cart-content").append('<p>購物車內無商品</p>');
 	                }
-	                // 顯示購物車模態框
+	                // 顯示購物車模
 	                openCartPage();
 	                // 更新localStorage中的購物車数量
 	                localStorage.setItem('cartCount', cartCount);

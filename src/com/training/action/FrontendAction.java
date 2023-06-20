@@ -146,7 +146,7 @@ public class FrontendAction extends DispatchAction {
 
 			session.setAttribute("cartGood", cartGood); // 顯示結帳商品明細
 
-		//	session.setAttribute("cartGoods", cartGoods); // 顯示商品明細
+			session.setAttribute("cartGoods", cartGoods); // 顯示商品明細
 
 			session.removeAttribute("cartGoods");
 

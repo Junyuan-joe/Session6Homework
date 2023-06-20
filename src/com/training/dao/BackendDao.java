@@ -205,24 +205,23 @@ private static BackendDao backendDao = new BackendDao();
 	            status = rs.getString("STATUS");//狀態
 	        }
 	    } catch (SQLException e0) {
-	        e0.printStackTrace();
+	        e0.printStackTrace();//有異常被拋出
 	    }
 	    
 	    
 	    String sql = "UPDATE BEVERAGE_GOODS SET PRICE=?, QUANTITY=?, STATUS=? " +
 	            "WHERE GOODS_ID=?";
 	    try(Connection conn = DBConnectionFactory.getOracleDBConnection();
-	            PreparedStatement prst = conn.prepareStatement(sql)){
+	       PreparedStatement prst = conn.prepareStatement(sql)){
 	    	//可以防止 SQL 注入攻击，并且在执行多次相同的 SQL 语句时，
 	    	//使用 PreparedStatement 会比使用 Statement 較好
 	    	
 	    	
 	        int counter = 0;
 	        prst.setInt(++counter, goods.getGoodsPrice());
-	
-	     
-	            int total = goods.getGoodsQuantity() + quantity;//庫存數量+新輸入數量
-	            prst.setInt(++counter, total);
+
+	        int total = goods.getGoodsQuantity() + quantity;//庫存數量+新輸入數量
+	        prst.setInt(++counter, total);
 
 	        
 	        if(goods.getStatus()!=null && !goods.getStatus().isEmpty()){//狀態
@@ -231,9 +230,9 @@ private static BackendDao backendDao = new BackendDao();
 	            prst.setString(++counter, status);
 	        }   
 	        prst.setLong(++counter, goods.getGoodsID());
-	        if(prst.executeUpdate()>0){//执行更新操作，如果更新成功，那么 updateSucces 的值会增加 1。
+	        if(prst.executeUpdate()>0){//执行更新操作，如果更新成功，那麼 updateSucces 的值会增加 1。
 
-                                     //  返回 updateSucces，如果它的值大于 0，那么表示更新操作成功。
+                                     //  返回 updateSucces，如果它的值大于於0，那麼表示更新操作成功。
 	            ++updateSucces;
 	        }
 	    } catch (SQLException e) {
@@ -353,13 +352,15 @@ private static BackendDao backendDao = new BackendDao();
 	
 public Goods queryGoodsById(Long goodsID){
 	Goods goods = null;		
-	// querySQL SQL
+
 	String querySQL = "SELECT GOODS_ID, GOODS_NAME, PRICE, QUANTITY, IMAGE_NAME, STATUS FROM BEVERAGE_GOODS WHERE GOODS_ID = ?";		
-	// Step1:取得Connection
+	
 	try (Connection conn = DBConnectionFactory.getOracleDBConnection();
-	    // Step2:Create prepareStatement For SQL
+	   
+	    //批次存取DB/預先載入/防止注入攻擊
 		PreparedStatement stmt = conn.prepareStatement(querySQL)){
 		stmt.setLong(1,goodsID);
+		//自動關閉資源
 		try(ResultSet rs = stmt.executeQuery()){
 			if(rs.next()){
 				goods = new Goods();
